@@ -10,14 +10,30 @@ var User = require('./app/models/user');
 
 
 var port = process.env.PORT || 8080;
-app.set('superSecret','p@$$w0rd!');
+app.set('superSecret',config.secret);
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-//enable routting
+//enable routing
 var apiRoutes = express.Router();
+
+
+
+apiRoutes.post('/account/signup',function(req,res){
+
+	res.send('You have been registered successfully.');
+});
+
+
+apiRoutes.post('/account/signin',function(req,res){
+	res.send('User does not exists');
+});
+
+
+
+
 
 apiRoutes.get('/values',function(req,res){
 	res.send('Hello from unsecure service')
@@ -71,6 +87,8 @@ apiRoutes.get('/values/1',function(req,res){
 
 app.use('/api',apiRoutes);
 app.listen(port);
+
+
 console.log('Server started at http://localhost:'+port);
 
 
