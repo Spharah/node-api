@@ -23,7 +23,7 @@ var apiRoutes = express.Router();
 
 apiRoutes.post('/account/signup',function(req,res){
 
-	res.send('You have been registered successfully.');
+	res.send('You have been registered successfully....');
 });
 
 
@@ -40,6 +40,44 @@ apiRoutes.get('/values',function(req,res){
 }); 
 
 
+
+apiRoutes.get('/OptionSet/OpportunityType',function(req,res){
+    res.json({
+  "IsSuccess": true,
+  "Message": "sample string 2",
+  "Data": [
+    {
+      "Key": "sample string 1",
+      "Value": 1
+    },
+    {
+      "Key": "sample string 1",
+      "Value": 1
+    },
+    {
+      "Key": "sample string 1",
+      "Value": 1
+    }
+  ],
+  "Cancellation": true,
+  "Error": {
+    "ClassName": "System.Exception",
+    "Message": null,
+    "Data": null,
+    "InnerException": null,
+    "HelpURL": "sample string 1",
+    "StackTraceString": null,
+    "RemoteStackTraceString": null,
+    "RemoteStackIndex": 0,
+    "ExceptionMethod": null,
+    "HResult": 3,
+    "Source": "sample string 2",
+    "WatsonBuckets": null
+  }
+});
+});
+
+
 //return token
 apiRoutes.get('/authenticate',function(req,res){	
 var user ={};
@@ -54,30 +92,30 @@ var user ={};
 
 
 //authenticate api 
-apiRoutes.use(function(req,res,next){
-
-	var token = req.body.token || req.query.token || req.headers['x-access-token'];
-	if(token)
-	{
-		jwt.verify(token,app.get('superSecret'),function(err,decoded){
-			if(err){
-				return res.json({success:true,message:'Failed to authenticate'});
-			}
-			else
-			{
-				req.decoded=decoded;
-				next();
-			}
-		});
-	}
-	else
-	{
-		return res.status(403).send({
-			success:false,
-			message:'No token provided'
-		});
-	}
-});
+//apiRoutes.use(function(req,res,next){
+//
+//	var token = req.body.token || req.query.token || req.headers['x-access-token'];
+//	if(token)
+//	{
+//		jwt.verify(token,app.get('superSecret'),function(err,decoded){
+//			if(err){
+//				return res.json({success:true,message:'Failed to authenticate'});
+//			}
+//			else
+//			{
+//				req.decoded=decoded;
+//				next();
+//			}
+//		});
+//	}
+//	else
+//	{
+//		return res.status(403).send({
+//			success:false,
+//			message:'No token provided'
+//		});
+//	}
+//});
 
 
 apiRoutes.get('/values/1',function(req,res){
